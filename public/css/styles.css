@@ -1,0 +1,67 @@
+body{
+  background-color: #eeecda;
+}
+.login-page {
+  width: 90%;
+  padding: 8% 0 0;
+  margin: auto;
+}
+.login-page-form {
+  position: relative;
+  z-index: 1;
+  background: #FFFFFF;
+  max-width: 90%;
+  margin: 0 auto 100px;
+  padding: 45px;
+  text-align: center;
+  box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
+}
+.login-page-input {
+  outline: 0;
+  width: 100%;
+  margin: 10px 0 20px;
+  box-sizing: border-box;
+  font-size: 14px;
+  padding-top: 0;
+  border-width: 0 0 2px;
+  border-color: #D3D3D3;
+}
+.login-page-input:focus{
+  border-color: black;
+}
+.login-page-form-subtitle{
+  text-align: right;
+  font-size: 15px;
+}
+.login-page-form-title{
+  text-align: right;
+  font-weight: bold;
+  font-size: 30px;
+  margin-top: 3rem;
+}
+
+::placeholder{
+  letter-spacing: 0.1rem;
+}
+.login-page-button{
+  padding: 0.7rem;
+  border: none;
+}
+
+.login-page-phonenumber-label{
+
+  position: relative;
+  padding-right: 0;
+}
+.login-page-phonenumber-success{
+  color:#28a745;
+  border-color: #28a745;
+}
+.login-page-phonenumber-fail{
+  border-color: #dc3545;
+  color: #dc3545;
+}
+.login-label{
+  text-align: right;
+  font-weight: bold;
+}

@@ -1,0 +1,26 @@
+<%# including header.ejs that includes boiler plate of our html %>
+<%-include("header");-%>
+
+  <div class="container login-page">
+    <div class="login-page-form">
+      <form class="login-form" action="/start" method="post">
+
+        <p class="login-page-form-title">به دانشجو اپ خوش آمدید</p>
+        <p class="login-page-form-subtitle ">لطفاً شماره تلفن همراه‌تان را وارد کنید تا کد فعال‌سازی برای شما ارسال شود.</p>
+        <div class="login-label">
+          <label class="login-page-phonenumber-label " for="login-page-phonenumber-input">شماره تلفن همراه</label>
+
+        </div>
+
+
+      <input name="submitPhoneNumber" class="login-page-input " id="login-page-phonenumber-input" type="tel" placeholder="مثلا ۰۹۱۲۳۴۵۶۷۸۹" autocomplete="off" autocorrect="off" maxlength="12" required oninvalid="this.setCustomValidity('Enter Value Here')"/>
+        <button class="login-page-button btn btn-success btn-lg btn-block" type="submit" name="login-page-button-name">مرحله بعد</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+<%# including footer.ejs that includes boiler plate of our html %>
+<%-include("footer");-%>
