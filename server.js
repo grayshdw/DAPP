@@ -100,7 +100,23 @@ app.get("/start",function(req,res){
   res.render("start");
 
 });
+//uploading page
+app.get("/upload",function(req,res){
+  res.render("upload");
 
+});
+
+app.post("/upload",function(req,res){
+  const qLessonName = req.body.qLessonName;
+  const qSubject = req.body.qSubject;
+  const qUniversity = req.body.qUniversity;
+  const newQuestion = new SampleQ({
+    lesson:qLessonName,
+    subject:qSubject,
+    university:qUniversity
+  });
+  newQuestion.save();
+});
 
 app.post("/start",function(req,res){
 

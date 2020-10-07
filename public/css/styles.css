@@ -1,6 +1,9 @@
 body{
   background-color: #eeecda;
 }
+.upload{
+  text-align: right;
+}
 .login-page {
   width: 90%;
   padding: 8% 0 0;
@@ -64,4 +67,8 @@ body{
 .login-label{
   text-align: right;
   font-weight: bold;
+}
+.qUploadBtn{
+  position: relative;
+  margin-left: auto auto;
 }
