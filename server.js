@@ -55,7 +55,43 @@ const sampleQSchema=new mongoose.Schema({
 //Creating the sample questions schema document
 const SampleQ=mongoose.model("SampleQ",sampleQSchema);
 
+//course notes  data base Schema
 
+const courseNoteSchema = new mongoose.Schema({
+  lesson:{
+    type:String,
+    required:true
+  },
+  subject:{
+    type:String,
+  },
+  university:{
+    type:String,
+    required:true
+  },
+  difficulty:{
+    type:Number,
+    //1 means easy and 3 means hard
+    min:1,
+    max:3
+  },
+  rating:{
+    type:Number,
+    //rating method for our Course note 1 is the worst and 5 is the best
+    min:1,
+    max:5
+  },
+  downloadedCount:{
+    type:Number
+  },
+  price:{
+    type:Number,
+    min:0
+  }
+});
+
+//Creating the sample questions schema document
+const CourseNote =  mongoose.model("CourseNote",courseNoteSchema);
 
 //User data base schema
 const usersSchema=new mongoose.Schema({
@@ -105,8 +141,8 @@ app.get("/upload",function(req,res){
   res.render("upload");
 
 });
-
-app.post("/upload",function(req,res){
+//Question uploading form Data
+app.post("/uploadQuestion",function(req,res){
   const qLessonName = req.body.qLessonName;
   const qSubject = req.body.qSubject;
   const qUniversity = req.body.qUniversity;
@@ -116,7 +152,22 @@ app.post("/upload",function(req,res){
     university:qUniversity
   });
   newQuestion.save();
+  res.redirect("/upload");
 });
+//Course Note uploading form Data
+app.post("/uploadNote",function(req,res){
+  const nLessonName = req.body.nLessonName;
+  const nSubject = req.body.nSubject;
+  const nUniversity = req.body.nUniversity;
+  const newNote = new CourseNote({
+    lesson:nLessonName,
+    subject:nSubject,
+    university:nUniversity
+  });
+  newNote.save();
+  res.redirect("/upload");
+});
+
 
 app.post("/start",function(req,res){
 

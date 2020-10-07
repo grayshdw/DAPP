@@ -1,40 +1,75 @@
 <%-include("header");-%>
-  <!-- <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+  <!-- <a class="btn btn-primary" data-toggle="collapse" href="#questionCollapse" role="button" aria-expanded="false" aria-controls="questionCollapse">
     Link with href
   </a> -->
-  <div class = "upload">
+  <div class = "upload" id ="uploadCollapse">
 
-  <button class="btn btn-success qUploadBtn" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+  <button class="btn btn-success uploadbtn" type="button" data-toggle="collapse" data-target="#questionCollapse" aria-expanded="false" aria-controls="questionCollapse">
     نمونه سوال
   </button>
-<div class="collapse" id="collapseExample">
-  <div class="card card-body">
-    <div class="col-md-6 offset-md-3 mt-5">
-         <h1>نمونه سوال خود را آپلود کنید</h1>
-         <form accept-charset="UTF-8" action="/upload" method="post">
-           <div class="form-group">
-             <label for="qSubject" required="required">موضوع</label>
-             <input type="text" name="qSubject" class="form-control" id="qSubject" autocomplete="off" placeholder="مثلا نمونه سوالات میان ترم فیزیک استاد صبا">
-           </div>
-           <div class="form-group">
-             <label for="qLessonName">نام درس</label>
-             <input type="text" name="qLessonName" class="form-control" id="qLessonName" placeholder="مثلا فیزیک 1" required="required">
-           </div>
-           <div class="form-group">
-             <label for="qUniversity">نام دانشگاه</label>
-             <input type="text" name="qUniversity" class="form-control" id="qUniversity" placeholder="صنعتی امیرکبیر" required="required">
-           </div>
+  <button class="btn btn-success uploadbtn" type="button" data-toggle="collapse" data-target="#courseNoteCollapse" aria-expanded="false" aria-controls="courseNoteCollapse">
+    جزوه
+  </button>
+  <div id="uploadCollapse">
+    <div class="collapse" id="courseNoteCollapse" data-parent="#uploadCollapse">
+      <div class="card card-body">
+        <div class="col-md-6 offset-md-3 mt-5">
+             <h1>جزوه خود را آپلود کنید</h1>
+             <form accept-charset="UTF-8" action="/uploadNote" method="post">
+               <div class="form-group">
+                 <label for="nSubject" required="required">موضوع</label>
+                 <input type="text" name="nSubject" class="form-control" id="nSubject" autocomplete="off" placeholder="مثلا جزوه ترمودینامیک استاد صبا">
+               </div>
+               <div class="form-group">
+                 <label for="nLessonName">نام درس</label>
+                 <input type="text" name="nLessonName" class="form-control" id="nLessonName" placeholder="مثلا فیزیک 1" required="required">
+               </div>
+               <div class="form-group">
+                 <label for="nUniversity">نام دانشگاه</label>
+                 <input type="text" name="nUniversity" class="form-control" id="nUniversity" placeholder="مثلا صنعتی امیرکبیر" required="required">
+               </div>
 
-           <hr>
-           <div class="form-group mt-3">
-             <label class="mr-2">نمونه سوال خود را آپلود کنید:</label>
-             <input type="file" name="file">
-           </div>
-           <hr>
-           <button type="submit" class="btn btn-success">ارسال</button>
-         </form>
-     </div>
+               <hr>
+               <div class="form-group mt-3">
+                 <label class="mr-2">محل آپلود جزوه:</label>
+                 <input type="file" name="file">
+               </div>
+               <hr>
+               <button type="submit" class="btn btn-success">ارسال</button>
+             </form>
+         </div>
+      </div>
+    </div>
+    <div class="collapse" id="questionCollapse" data-parent="#uploadCollapse">
+      <div class="card card-body">
+        <div class="col-md-6 offset-md-3 mt-5">
+             <h1>نمونه سوال خود را آپلود کنید</h1>
+             <form accept-charset="UTF-8" action="/uploadQuestion" method="post">
+               <div class="form-group">
+                 <label for="qSubject" required="required">موضوع</label>
+                 <input type="text" name="qSubject" class="form-control" id="qSubject" autocomplete="off" placeholder="مثلا نمونه سوالات میان ترم فیزیک استاد صبا">
+               </div>
+               <div class="form-group">
+                 <label for="qLessonName">نام درس</label>
+                 <input type="text" name="qLessonName" class="form-control" id="qLessonName" placeholder="مثلا فیزیک 1" required="required">
+               </div>
+               <div class="form-group">
+                 <label for="qUniversity">نام دانشگاه</label>
+                 <input type="text" name="qUniversity" class="form-control" id="qUniversity" placeholder="مثلا صنعتی امیرکبیر" required="required">
+               </div>
+
+               <hr>
+               <div class="form-group mt-3">
+                 <label class="mr-2">محل آپلود نمونه سوال:</label>
+                 <input type="file" name="file">
+               </div>
+               <hr>
+               <button type="submit" class="btn btn-success">ارسال</button>
+             </form>
+         </div>
+      </div>
+    </div>
   </div>
-</div>
+
 </div>
 <%-include("footer");%>
