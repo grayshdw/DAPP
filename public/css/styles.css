@@ -1,6 +1,9 @@
 body{
   background-color: #eeecda;
 }
+.card{
+  margin: 1rem;
+}
 .upload{
   text-align: right;
 }
@@ -73,4 +76,7 @@ body{
 .login-label{
   text-align: right;
   font-weight: bold;
+}
+.list{
+  text-align: right;
 }

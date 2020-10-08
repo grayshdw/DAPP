@@ -141,6 +141,14 @@ app.get("/upload",function(req,res){
   res.render("upload");
 
 });
+//List of Notes page
+app.get("/notes",function(req,res){
+  let notes = CourseNote.find({},function(err,notesData){
+
+    res.render("notes",{notesDataList:notesData});
+  });
+
+});
 //Question uploading form Data
 app.post("/uploadQuestion",function(req,res){
   const qLessonName = req.body.qLessonName;
