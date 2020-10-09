@@ -46,14 +46,24 @@ const sampleQSchema=new mongoose.Schema({
   },
   downloadedCount:{
     type:Number
+  },
+  answer:{
+    type:SampleA
   }
-
-
-
 });
 
 //Creating the sample questions schema document
-const SampleQ=mongoose.model("SampleQ",sampleQSchema);
+const SampleQ = mongoose.model("SampleQ",sampleQSchema);
+
+//Answers data base Schema
+const sampleASchema = new mongoose.Schema({
+  question: {
+    type: SampleQ
+  }
+});
+
+//Creating the sample answers schema document
+const SampleA = new mongoose.model("SampleA", sampleASchema);
 
 //course notes  data base Schema
 
@@ -68,12 +78,6 @@ const courseNoteSchema = new mongoose.Schema({
   university:{
     type:String,
     required:true
-  },
-  difficulty:{
-    type:Number,
-    //1 means easy and 3 means hard
-    min:1,
-    max:3
   },
   rating:{
     type:Number,
