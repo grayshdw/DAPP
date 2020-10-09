@@ -153,6 +153,14 @@ app.get("/notes",function(req,res){
   });
 
 });
+//List of questions page
+app.get("/questions",function(req,res){
+  let notes = SampleQ.find({},function(err,questionsData){
+
+    res.render("questions",{questionsDataList:questionsData});
+  });
+
+});
 //Question uploading form Data
 app.post("/uploadQuestion",function(req,res){
   const qLessonName = req.body.qLessonName;

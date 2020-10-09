@@ -4,6 +4,13 @@ body{
 .card{
   margin: 1rem;
 }
+.card-footer{
+  background-color: white;
+}
+.card-img-top
+{
+  width: 2rem;
+}
 .upload{
   text-align: right;
 }
