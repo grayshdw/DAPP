@@ -13,7 +13,7 @@
         </div>
 
 
-      <input name="submitPhoneNumber" class="login-page-input " id="login-page-phonenumber-input" type="tel" placeholder="مثلا ۰۹۱۲۳۴۵۶۷۸۹" autocomplete="off" autocorrect="off" maxlength="12" required oninvalid="this.setCustomValidity('Enter Value Here')"/>
+      <input name="submitPhoneNumber" class="login-page-input " id="login-page-phonenumber-input" type="tel" pattern="[0-9]{11}" placeholder="مثلا ۰۹۱۲۳۴۵۶۷۸۹" autocomplete="off" autocorrect="off" maxlength="11" required  oninvalid="this.setCustomValidity('ridi')"/>
         <button class="login-page-button btn btn-success btn-lg btn-block" type="submit" name="login-page-button-name">مرحله بعد</button>
     </form>
   </div>

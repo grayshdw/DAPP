@@ -65,3 +65,84 @@ body{
   text-align: right;
   font-weight: bold;
 }
+.verify-handler{
+  text-align: right;
+}
+.verify-page-back-icon{
+  margin:1rem;
+  font-size: 1.5rem;
+  display: block;
+
+}
+.verify-page-back-icon:hover{
+  width: 1.5rem;
+  height: 1.5rem;;
+  background-color: white;
+  border-radius:50%;
+  box-shadow: 0 0 0 0.5rem white;
+}
+
+.button-transparent{
+  background: transparent;
+  border: none;
+}
+.header-h2-black-rtl{
+  margin:1rem;
+}
+.inline{
+  display:inline;
+}
+.button-greenText-withNoRPadding{
+  color: #28a745;
+  padding-right: 0;
+}
+.verify-paragraph{
+  text-align: right;
+  margin-right: 1rem;
+  margin-top: 2rem;
+}
+.verify-input{
+  display: flex;
+  position: relative;
+  margin-left: 8px;
+}
+
+.verify-code-input{
+  color: green;
+  border: none;
+  height: 48px;
+  outline: none;
+  position: absolute;
+  font-size: 20px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 0;
+  background-color: transparent;
+}
+.verify-page-number-container{
+  color: green;
+    width: 32px;
+    height: 48px;
+    display: flex;
+    position: relative;
+    font-size: 20px;
+    align-items: center;
+    font-weight: bold;
+    margin-right: 8px;
+    justify-content: center;
+    border-bottom-color: black;
+    border-bottom-style: solid;
+    border-bottom-width: 2px;
+
+}
+.verify-page-input-container{
+  display: flex;
+  direction: ltr;
+  align-items: center;
+  justify-content: center;
+  background-color:  #eeecda;
+}
+.verify-page-middle{
+    width: 280px;
+    margin: 50px auto 0;
+}
