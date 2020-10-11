@@ -1,25 +1,27 @@
 <%-include("header");-%>
+
 <div class="list">
   <div class="row">
-    <% for(var i=0; i < notesDataList.length; i++) { %>
+    <% notesDataList.forEach(function(note) { %>
     <div class="col-sm-3">
       <div class="card">
         <div class="card h-100">
-         <div class="card-body">
-           <img src="images/notes/PDF_logo.png" class="card-img-top" alt="pdf logo">
-           <h5 class="card-title"><%= notesDataList[i].subject%></h5>
-           <p class="card-text"><%= notesDataList[i].university%></p>
-         </div>
-         <div class="card-footer">
-           <a href="#" class="btn btn-success btn-block">خرید</a>
-         </div>
-       </div>
+          <div class="card-body">
+            <img src="images/notes/PDF_logo.png" class="card-img-top" alt="pdf logo">
+            <h5 class="card-title"><%= note.subject%></h5>
+            <p class="card-text"><%= note.university%></p>
+          </div>
+          <div class="card-footer">
+              <a href="/buyN/<%= note.id %>" class="btn btn-success">خرید</a>
+              <div class="popUp">
+                <p> خلاصه جزئیات</p>
+              </div>
+          </div>
+        </div>
       </div>
-
     </div>
-<% } %>
+    <% }) %>
   </div>
 </div>
-
 
 <%-include("footer");-%>

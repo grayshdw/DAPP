@@ -24,7 +24,7 @@ mongoose.connect("mongodb://localhost:27017/daneshjooAppDB", {useNewUrlParser: t
 
 
 //Sample questions data base schema
-const sampleQSchema=new mongoose.Schema({
+const questionSchema=new mongoose.Schema({
   lesson: {
     type: String,
     required: true
@@ -56,26 +56,26 @@ const sampleQSchema=new mongoose.Schema({
   }
 });
 //Creating the sample questions schema document
-const SampleQ = mongoose.model("SampleQ",sampleQSchema);
+const question = mongoose.model("question",questionSchema);
 
 
 //Answers data base Schema
-const sampleASchema = new mongoose.Schema({
+const answerSchema = new mongoose.Schema({
   question: {
-    type: sampleQSchema
+    type: questionSchema
   }
 });
 //Creating the sample answers schema document
-const SampleA = new mongoose.model("SampleA", sampleASchema);
+const answer = new mongoose.model("answer", answerSchema);
 
 //Adding answer field to sampleQSchema
-SampleQ.updateMany({}, {answer: SampleA}, function(err) {
+question.updateMany({}, {answer: answer}, function(err) {
     if (err)
       console.log(err);
 });
 
 //course notes  data base Schema
-const courseNoteSchema = new mongoose.Schema({
+const noteSchema = new mongoose.Schema({
   lesson: {
     type: String,
     required: true
@@ -102,10 +102,10 @@ const courseNoteSchema = new mongoose.Schema({
   }
 });
 //Creating the sample questions schema document
-const CourseNote =  mongoose.model("CourseNote", courseNoteSchema);
+const note =  mongoose.model("note", noteSchema);
 
 //User data base schema
-const usersSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
   phone: {
     type: String,
     required: true,
@@ -126,11 +126,10 @@ const usersSchema = new mongoose.Schema({
   username: {
     type: String
   },
-  sampleQDown: [sampleQSchema]
-
+  questionsDown: [questionSchema]
 });
 //Creating the user document
-const User = mongoose.model("User",usersSchema);
+const user = mongoose.model("user",userSchema);
 
 
 
@@ -152,27 +151,43 @@ app.get("/upload", function(req, res) {
 
 //List of Notes page
 app.get("/notes", function(req, res) {
-  let notes = CourseNote.find({}, function(err, notesData) {
+  let notes = note.find({}, function(err, notesData) {
     res.render("notes",{notesDataList:notesData});
   });
 });
 
 //List of questions page
 app.get("/questions", function(req, res){
-  let notes = SampleQ.find({}, function(err, questionsData){
-    res.render("questions", {questionsDataList:questionsData});
+  let notes = question.find({}, function(err, questionsData){
+    res.render("questions", {questionsDataList: questionsData});
+  });
+});
+
+//Buying a question page
+app.get("/buyQ/:itemID", function(req, res) {
+  let link = req.params.itemID;
+  let q = question.find({"_id": link}, function(err, q) {
+    res.render("itemDetail", {item: q});
+  });
+});
+
+//Buying a note page
+app.get("/buyN/:itemID", function(req, res) {
+  let link = req.params.itemID;
+  let n = note.find({"_id": link}, function(err, n) {
+    res.render("itemDetail", {item: n});
   });
 });
 
 //Question uploading form Data
 app.post("/uploadQuestion", function(req, res){
-  const qLessonName = req.body.qLessonName;
-  const qSubject = req.body.qSubject;
-  const qUniversity = req.body.qUniversity;
-  const newQuestion = new SampleQ({
-    lesson:qLessonName,
-    subject:qSubject,
-    university:qUniversity
+  const lesson = req.body.qLesson;
+  const subject = req.body.qSubject;
+  const university = req.body.qUniversity;
+  const newQuestion = new question({
+    lesson: lesson,
+    subject: subject,
+    university: university
   });
   newQuestion.save();
   res.redirect("/upload");
@@ -180,13 +195,13 @@ app.post("/uploadQuestion", function(req, res){
 
 //Course Note uploading form Data
 app.post("/uploadNote",function(req, res){
-  const nLessonName = req.body.nLessonName;
-  const nSubject = req.body.nSubject;
-  const nUniversity = req.body.nUniversity;
-  const newNote = new CourseNote({
-    lesson:nLessonName,
-    subject:nSubject,
-    university:nUniversity
+  const lesson = req.body.nLessonName;
+  const subject = req.body.nSubject;
+  const university = req.body.nUniversity;
+  const newNote = new note({
+    lesson:lesson,
+    subject:subject,
+    university:university
   });
   newNote.save();
   res.redirect("/upload");
@@ -194,9 +209,9 @@ app.post("/uploadNote",function(req, res){
 
 // Logining in
 app.post("/start",function(req,res){
-  const phoneNumber=req.body.submitPhoneNumber;
-  const newUser=new User({
-    phone:phoneNumber
+  const phoneNumber = req.body.submitPhoneNumber;
+  const newUser = new user({
+    phone: phoneNumber
   });
   newUser.save((err, data) => {
     console.log('Analyzing Data...');
