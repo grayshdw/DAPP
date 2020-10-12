@@ -1,5 +1,7 @@
 body{
   background-color: lightgrey;
+  text-align: right;
+  font-size: 1rem;
 }
 .card{
   margin: 1rem;
@@ -117,4 +119,38 @@ body{
 }
 .popupImage {
   height: 100px;
+}
+
+
+/* item detail page  */
+.addCart{
+  margin: 1rem;
+  border: 1px solid black;
+}
+.bottom-bar{
+  background-color: #e9ecef;
+  margin: 1rem;
+  padding: 1rem;
+  border-radius: 0.2rem;
+}
+.item-details{
+  margin: 0.5rem;
+}
+.item-subject{
+  font-size:2.5rem;
+  margin-bottom: 1rem;
+}
+.item-lesson{
+  font-size:1.5rem;
+}
+.item-price{
+text-align: left;
+color: #007ce1;
+}
+.item-university{
+  font-size:1.5rem;
+}
+.price-number{
+margin-left: 1rem;
+font-size: 2.75rem;
 }

@@ -166,7 +166,7 @@ app.get("/questions", function(req, res){
 //Buying a question page
 app.get("/buyQ/:itemID", function(req, res) {
   let link = req.params.itemID;
-  let q = question.find({"_id": link}, function(err, q) {
+  let q = question.findOne({_id: link}, function(err, q) {
     res.render("itemDetail", {item: q});
   });
 });
@@ -174,7 +174,7 @@ app.get("/buyQ/:itemID", function(req, res) {
 //Buying a note page
 app.get("/buyN/:itemID", function(req, res) {
   let link = req.params.itemID;
-  let n = note.find({"_id": link}, function(err, n) {
+  let n = note.findOne({_id: link}, function(err, n) {
     res.render("itemDetail", {item: n});
   });
 });
