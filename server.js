@@ -195,7 +195,7 @@ app.post("/uploadQuestion", function(req, res){
 
 //Course Note uploading form Data
 app.post("/uploadNote",function(req, res){
-  const lesson = req.body.nLessonName;
+  const lesson = req.body.nLesson;
   const subject = req.body.nSubject;
   const university = req.body.nUniversity;
   const newNote = new note({

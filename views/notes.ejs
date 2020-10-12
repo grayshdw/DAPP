@@ -2,6 +2,7 @@
 
 <div class="list">
   <div class="row">
+    <% var i = 0; %>
     <% notesDataList.forEach(function(note) { %>
     <div class="col-sm-3">
       <div class="card">
@@ -14,12 +15,53 @@
           <div class="card-footer">
               <a href="/buyN/<%= note.id %>" class="btn btn-success">خرید</a>
               <div class="popUp">
-                <p> خلاصه جزئیات</p>
+                <!-- Button trigger modal -->
+                <a href="#" class="moreDescrpition" data-toggle="modal" data-target="#note<%=i%>">جزئیات بیشتر</a>
+
+                <!-- Modal -->
+                <div class="modal fade" id="note<%=i%>" tabindex="-1" role="dialog" aria-labelledby="nTitle<%=i%>" aria-hidden="true">
+                  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="nTitle<%=i%>"><%=note.subject%></h5>
+                      </div>
+                      <div class="modal-body">
+                        <div class="container">
+                          <div class="row">
+                            <div class="col-3">
+                              <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                                <a class="nav-link active" id="v-pills-info-tab" data-toggle="pill" href="#v-pills-info<%=i%>" role="tab" aria-controls="v-pills-info<%=i%>" aria-selected="true">اطلاعات</a>
+                                <a class="nav-link" id="v-pills-comments-tab" data-toggle="pill" href="#v-pills-comments<%=i%>" role="tab" aria-controls="v-pills-comments<%=i%>" aria-selected="false">نظرات</a>
+                                <a class="nav-link" id="v-pills-images-tab" data-toggle="pill" href="#v-pills-images<%=i%>" role="tab" aria-controls="v-pills-images<%=i%>" aria-selected="false">تصاویر</a>
+                                <a class="nav-link" id="v-pills-reports-tab" data-toggle="pill" href="#v-pills-reports<%=i%>" role="tab" aria-controls="v-pills-reports<%=i%>" aria-selected="false">گزارش</a>
+                              </div>
+                            </div>
+                            <div class="col-9">
+                              <div class="tab-content" id="v-pills-tabContent">
+                                <div class="tab-pane fade show active" id="v-pills-info<%=i%>" role="tabpanel" aria-labelledby="v-pills-info-tab"><%= note.university%></div>
+                                <div class="tab-pane fade" id="v-pills-comments<%=i%>" role="tabpanel" aria-labelledby="v-pills-comments-tab">..345.</div>
+                                <div class="tab-pane fade" id="v-pills-images<%=i%>" role="tabpanel" aria-labelledby="v-pills-images-tab">.56456..</div>
+                                <div class="tab-pane fade" id="v-pills-reports<%=i%>" role="tabpanel" aria-labelledby="v-pills-reports-tab">..756756865.</div>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <a href="/buyQ/<%= note.id %>" class="btn btn-success">خرید</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
           </div>
         </div>
       </div>
     </div>
+    <% i++;%>
     <% }) %>
   </div>
 </div>
