@@ -227,7 +227,10 @@ app.post("/start",function(req,res){
   });
 });
 
-
+function myFunction() {
+  var popup = document.getElementById("myPopup");
+  popup.classList.toggle("show");
+}
 
 
 //Opening and starting our server on port 3000
