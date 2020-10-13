@@ -25,7 +25,7 @@ mongoose.connect("mongodb://localhost:27017/daneshjooAppDB", {useNewUrlParser: t
 
 
 //Sample questions data base schema
-const questionSchema=new mongoose.Schema({
+const questionSchema = new mongoose.Schema({
   lesson: {
     type: String,
     required: true
@@ -53,9 +53,13 @@ const questionSchema=new mongoose.Schema({
     type: Number
   },
   answer: {
-    type: String
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "answer"
   },
-  comments: [String]
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "comment"
+  }]
 });
 //Creating the sample questions schema document
 const question = mongoose.model("question",questionSchema);
@@ -64,7 +68,8 @@ const question = mongoose.model("question",questionSchema);
 //Answers data base Schema
 const answerSchema = new mongoose.Schema({
   question: {
-    type: questionSchema
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "question"
   }
 });
 //Creating the answers schema document
@@ -96,7 +101,10 @@ const noteSchema = new mongoose.Schema({
     type: Number,
     min: 0
   },
-  comments: [String]
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "comment"
+  }]
 });
 //Creating the questions schema document
 const note =  mongoose.model("note", noteSchema);
@@ -118,13 +126,21 @@ const userSchema = new mongoose.Schema({
     type: String
   },
   email: {
-    type: String
+    type: String,
+    unique: true
   },
   username: {
-    type: String
+    type: String,
+    unique: true
   },
-  questionsDown: [questionSchema],
-  comments: [String]
+  questionsDown: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "question"
+  }],
+  comments: [{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "comment"
+  }]
 });
 //Creating the user document
 const user = mongoose.model("user",userSchema);
@@ -151,46 +167,12 @@ const commentSchema = new mongoose.Schema ({
     type: Number
   },
   item: {
-    type: questionSchema ,
+    type: questionSchema,
     required: true
   }
 });
 // Crearing comments database model
 const comment = mongoose.model("comment", commentSchema);
-
-
-
-
-//Adding answer field to questionSchema
-question.updateMany({}, {answer: answer}, function(err) {
-    if (err)
-      console.log(err);
-});
-
-//Adding respond field to commentSchema
-comment.updateMany({}, {respond: comment}, function(err) {
-    if (err)
-      console.log(err);
-});
-
-
-//Adding comments field to questionSchema
-question.updateMany({}, {comments: [comment]}, function(err) {
-  if (err)
-    console.log(err);
-});
-
-//Adding comments field to noteSchema
-note.updateMany({}, {comments: [comment]}, function(err) {
-  if (err)
-    console.log(err);
-});
-
-//Adding comments field to userSchema
-user.updateMany({}, {comments: [comment]}, function(err) {
-  if (err)
-    console.log(err);
-});
 
 
 
@@ -261,8 +243,9 @@ app.post("/buyQ/:questionID", function(req, res) {
     if (err)
       console.log(err);
   });
-  const text = req.body.comment;
-    console.log(text);
+  let text = "";
+  text = req.body.comment;
+  console.log(text);
   /*
   console.log(link);
   const newComment = new comment({
