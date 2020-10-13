@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const mongoose = require("mongoose");
 const app = express();
+const jQuery = $ = require('jquery');
 
 
 
@@ -53,7 +54,8 @@ const questionSchema=new mongoose.Schema({
   },
   answer: {
     type: String
-  }
+  },
+  comments: [String]
 });
 //Creating the sample questions schema document
 const question = mongoose.model("question",questionSchema);
@@ -65,16 +67,10 @@ const answerSchema = new mongoose.Schema({
     type: questionSchema
   }
 });
-//Creating the sample answers schema document
+//Creating the answers schema document
 const answer = new mongoose.model("answer", answerSchema);
 
-//Adding answer field to sampleQSchema
-question.updateMany({}, {answer: answer}, function(err) {
-    if (err)
-      console.log(err);
-});
-
-//course notes  data base Schema
+//course notes data base Schema
 const noteSchema = new mongoose.Schema({
   lesson: {
     type: String,
@@ -99,9 +95,10 @@ const noteSchema = new mongoose.Schema({
   price: {
     type: Number,
     min: 0
-  }
+  },
+  comments: [String]
 });
-//Creating the sample questions schema document
+//Creating the questions schema document
 const note =  mongoose.model("note", noteSchema);
 
 //User data base schema
@@ -126,10 +123,74 @@ const userSchema = new mongoose.Schema({
   username: {
     type: String
   },
-  questionsDown: [questionSchema]
+  questionsDown: [questionSchema],
+  comments: [String]
 });
 //Creating the user document
 const user = mongoose.model("user",userSchema);
+
+//Comments Schema
+const commentSchema = new mongoose.Schema ({
+  commenter: {
+    type: userSchema,
+    required: true
+  },
+  context: {
+    type: String,
+    required: true
+  },
+  respond: {
+    type: String
+  },
+  rating: {
+    type: Number,
+    min: 1,
+    max: 5
+  },
+  likes: {
+    type: Number
+  },
+  item: {
+    type: questionSchema ,
+    required: true
+  }
+});
+// Crearing comments database model
+const comment = mongoose.model("comment", commentSchema);
+
+
+
+
+//Adding answer field to questionSchema
+question.updateMany({}, {answer: answer}, function(err) {
+    if (err)
+      console.log(err);
+});
+
+//Adding respond field to commentSchema
+comment.updateMany({}, {respond: comment}, function(err) {
+    if (err)
+      console.log(err);
+});
+
+
+//Adding comments field to questionSchema
+question.updateMany({}, {comments: [comment]}, function(err) {
+  if (err)
+    console.log(err);
+});
+
+//Adding comments field to noteSchema
+note.updateMany({}, {comments: [comment]}, function(err) {
+  if (err)
+    console.log(err);
+});
+
+//Adding comments field to userSchema
+user.updateMany({}, {comments: [comment]}, function(err) {
+  if (err)
+    console.log(err);
+});
 
 
 
@@ -165,7 +226,7 @@ app.get("/questions", function(req, res){
 
 //Buying a question page
 app.get("/buyQ/:itemID", function(req, res) {
-  let link = req.params.itemID;
+  const link = req.params.itemID;
   let q = question.findOne({_id: link}, function(err, q) {
     res.render("itemDetail", {item: q});
   });
@@ -173,7 +234,7 @@ app.get("/buyQ/:itemID", function(req, res) {
 
 //Buying a note page
 app.get("/buyN/:itemID", function(req, res) {
-  let link = req.params.itemID;
+  const link = req.params.itemID;
   let n = note.findOne({_id: link}, function(err, n) {
     res.render("itemDetail", {item: n});
   });
@@ -193,7 +254,55 @@ app.post("/uploadQuestion", function(req, res){
   res.redirect("/upload");
 });
 
-//Course Note uploading form Data
+//Commenting on a question
+app.post("/buyQ/:questionID", function(req, res) {
+  let link = req.params.questionID;
+  let q = question.findOne({_id: link}, function(err, q) {
+    if (err)
+      console.log(err);
+  });
+  const text = req.body.comment;
+    console.log(text);
+  /*
+  console.log(link);
+  const newComment = new comment({
+    context: text,
+    item: q
+  });
+  console.log(newComment);
+  question.updateOne({_id: link}, {comments: text}, function(err) {
+    if (err)
+      console.log(err);
+  });
+  */
+  res.render("itemDetail", {item: q});
+});
+
+//Commenting on a note
+app.post("/buyN/:noteID", function(req, res) {
+  let link = req.params.noteID;
+  let n = note.findOne({_id: link}, function(err, n) {
+    if (err)
+      console.log(err);
+  });
+  const text = req.body.comment;
+  console.log(text);
+  /*
+  console.log(link);
+  const newComment = new comment({
+    context: text,
+    item: q
+  });
+  console.log(newComment);
+  question.updateOne({_id: link}, {comments: text}, function(err) {
+    if (err)
+      console.log(err);
+  });
+  */
+  res.render("itemDetail", {item: n});
+});
+
+//Note uploading form Data
 app.post("/uploadNote",function(req, res){
   const lesson = req.body.nLesson;
   const subject = req.body.nSubject;
@@ -226,11 +335,12 @@ app.post("/start",function(req,res){
     }
   });
 });
-
 function myFunction() {
   var popup = document.getElementById("myPopup");
   popup.classList.toggle("show");
 }
+
+
 
 
 //Opening and starting our server on port 3000

@@ -32,11 +32,18 @@
       <a class="nav-link active" id="nav-images-tab" data-toggle="tab" href="#nav-images" role="tab" aria-controls="nav-images" aria-selected="true">تصاویر</a>
       <a class="nav-link" id="nav-comments-tab" data-toggle="tab" href="#nav-comments" role="tab" aria-controls="nav-comments" aria-selected="false">نظرات</a>
   </nav>
+
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-images" role="tabpanel" aria-labelledby="nav-images-tab">...</div>
     <div class="tab-pane fade" id="nav-comments" role="tabpanel" aria-labelledby="nav-comments-tab">...</div>
   </div>
 
+  <form accept-charset="UTF-8" method="post" action="<%= item.id %>" id="commentForm">
+    <div class="form-group">
+      <input type="text" name="comment" class="form-control" id="comment" placeholder="نظر خود را بنویسید..." required="required" value="" autocomplete="off">
+    </div>
+    <button type="submit" class="bts btn-success">ثبت نظر</button>
+  </form>
 </div>
 
 <%-include("footer");-%>
