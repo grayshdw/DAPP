@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const mongoose = require("mongoose");
 const app = express();
-const jQuery = $ = require('jquery');
 
 
 
@@ -243,7 +242,6 @@ app.post("/buyQ/:questionID", function(req, res) {
     if (err)
       console.log(err);
   });
-  let text = "";
   text = req.body.comment;
   console.log(text);
   /*
