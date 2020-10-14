@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const _ = require("lodash");
 const mongoose = require("mongoose");
 const app = express();
-const jQuery = $ = require('jquery');
 
 
 
