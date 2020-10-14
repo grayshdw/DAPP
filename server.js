@@ -243,7 +243,7 @@ app.post("/buyQ/:questionID", function(req, res) {
     if (err)
       console.log(err);
   });
-  let text = "";
+  req.body.comment.value = "";
   text = req.body.comment;
   console.log(text);
   /*
@@ -268,6 +268,7 @@ app.post("/buyN/:noteID", function(req, res) {
     if (err)
       console.log(err);
   });
+  req.body.comment.value = "";
   const text = req.body.comment;
   console.log(text);
   /*
