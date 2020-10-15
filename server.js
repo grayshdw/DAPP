@@ -6,11 +6,11 @@ const mongoose = require("mongoose");
 const app = express();
 
 //using other database models
-const question = require("./question.js");
-var note = require("./note.js");
-var comment = require("./comment.js");
-var user = require("./user.js");
-var answer = require("./answer.js");
+const question = require(__dirname+ "/question.js");
+var note = require(__dirname+ "/note.js");
+var comment = require(__dirname+ "/comment.js");
+var user = require(__dirname+ "/user.js");
+var answer = require(__dirname+ "/answer.js");
 
 //Setting EJS as our view engine that fetches ejs files from views folder
 app.set('view engine', 'ejs');
@@ -120,7 +120,7 @@ app.post("/buyQ/:questionID", function(req, res) {
       console.log(err);
   });
   */
-  res.redirect("/buyQ/"+link);
+  res.redirect("/buyQ/"+ link);
 });
 
 //Commenting on a note
@@ -144,7 +144,7 @@ app.post("/buyN/:noteID", function(req, res) {
       console.log(err);
   });
   */
-  res.redirect("/buyN/"+link);
+  res.redirect("/buyN/"+ link);
 });
 
 //Note uploading form Data
