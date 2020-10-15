@@ -1,33 +1,32 @@
 //Dependencies & Requirements
-require('dotenv').config();
-const express=require("express");
-const bodyParser=require("body-parser");
-const _=require("lodash");
-const mongoose=require("mongoose");
-const app=express();
-const otpGenerator = require("otp-generator");
-const crypto = require("crypto");
+const express = require("express");
+const bodyParser = require("body-parser");
+const _ = require("lodash");
+const mongoose = require("mongoose");
+const app = express();
 const session = require('express-session');
 const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
-
-let otp;
-let loggedIn=false;
+const generateOTP = require(__dirname + "/localModules/generateOTP.js")
+require('dotenv').config();
 //Setting EJS as our view engine that fetches ejs files from views folder
 app.set('view engine', 'ejs');
 
 
 //Using bodyParser
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 
 //Adding public folder as a static source of our project
 app.use(express.static("public"));
 
 app.use(session({
-  secret: "Our little secret.",
+  secret: process.env.SESSION_KEY,
   resave: false,
-  saveUninitialized: false
+  saveUninitialized: false,
+  signed: true,
 }));
 
 app.use(passport.initialize());
@@ -35,49 +34,41 @@ app.use(passport.session());
 
 
 //Connecting to the DataBase on port 27017
-mongoose.connect("mongodb://localhost:27017/daneshjooAppDB",{useNewUrlParser:true,useUnifiedTopology:true,useFindAndModify: false,useCreateIndex: true, });
+mongoose.connect("mongodb://localhost:27017/daneshjooAppDB", {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+});
 
-
-function createNewOTP(){
-    // Generate a 6 digit numeric OTP
-    otp      = otpGenerator.generate(6, {alphabets: false, upperCase: false, specialChars: false});
-    const ttl      = 2 * 60 * 1000; //5 Minutes in miliseconds
-    const expires  = Date.now() + ttl; //timestamp to 5 minutes in the future
-    const data     = `${otp}.${expires}`; // phone.otp.expiry_timestamp
-    const hash     = crypto.createHmac("sha256",process.env.KEY).update(data).digest("hex"); // creating SHA256 hash of the data
-    const fullHash = `${hash}.${expires}`; // Hash.expires, format to send to the user
-    // you have to implement the function to send SMS yourself. For demo purpose. let's assume it's called sendSMS
-    console.log(`Your OTP is ${otp}. it will expire in 1 minutes`);
-    return fullHash;
-}
 
 //Sample questions data base schema
-const sampleQSchema=new mongoose.Schema({
-  lesson:{
-    type:String,
-    required:true
+const sampleQSchema = new mongoose.Schema({
+  lesson: {
+    type: String,
+    required: true
   },
-  subject:{
-    type:String,
+  subject: {
+    type: String,
   },
-  university:{
-    type:String,
-    required:true
+  university: {
+    type: String,
+    required: true
   },
-  difficulty:{
-    type:Number,
+  difficulty: {
+    type: Number,
     //1 means easy and 3 means hard
-    min:1,
-    max:3
+    min: 1,
+    max: 3
   },
-  rating:{
-    type:Number,
+  rating: {
+    type: Number,
     //rating method for our sample questions 1 is the worst and 5 is the best
-    min:1,
-    max:5
+    min: 1,
+    max: 5
   },
-  downloadedCount:{
-    type:Number
+  downloadedCount: {
+    type: Number
   }
 
 
@@ -85,39 +76,42 @@ const sampleQSchema=new mongoose.Schema({
 });
 
 //Creating the sample questions schema document
-const SampleQ=mongoose.model("SampleQ",sampleQSchema);
+const SampleQ = mongoose.model("SampleQ", sampleQSchema);
 
 
 
 //User data base schema
-const usersSchema=new mongoose.Schema({
-  phone:{
-    type:String,
-    required:true,
+const usersSchema = new mongoose.Schema({
+  phone: {
+    type: String,
+    required: true,
     unique: true
   },
-  firstName:{
+  firstName: {
+    type: String
+  },
+  lastName: {
+    type: String
+  },
+  university: {
+    type: String
+  },
+  email: {
+    type: String
+  },
+  password:{
     type:String
   },
-  lastName:{
-    type:String
-  },
-  university:{
-    type:String
-  },
-  email:{
-    type:String
-  },
-  username:{
-    type:String
-  },
-  sampleQDown:[sampleQSchema]
+  verifyCode: Number,
+  registered: String,
+  verified: String,
 
 });
 
 usersSchema.plugin(passportLocalMongoose);
+
 //Creating the user document
-const User=mongoose.model("User",usersSchema);
+const User = new mongoose.model("User", usersSchema);
 
 
 
@@ -127,82 +121,124 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
 
-
 //landing page
-app.get("/",function(req,res){
-  res.render("home",{loggedIn:loggedIn});
+app.get("/", function(req, res) {
+  res.render("home");
 });
 
 //start page
-app.get("/start",function(req,res){
+app.get("/start", function(req, res) {
   res.render("start");
 
 });
-
-
-app.post("/start",function(req,res){
-
-  const phoneNumber=req.body.submitPhoneNumber;
-
-  const newUser=new User({
-    phone:phoneNumber
-
-    });
-
-  newUser.save((err, data) => {
-      console.log('Analyzing Data...');
-      if(data) {
-          console.log('Your data has been successfully saved.');
-          newUser.save();
-          res.render("verify",{phoneNumber:phoneNumber});
-          createNewOTP();
+app.get("/dashboard", function(req, res) {
+  if (req.isAuthenticated()) {
+    res.render("dashboard");
+  } else {
+    res.redirect("/start");
   }
-  else {
-    console.log('Repetetive user');
-    res.render("verify",{phoneNumber:phoneNumber});
-    createNewOTP();
+});
 
-  }
+app.post("/profile", function(req, res) {
 
+});
+
+
+app.post("/start", function(req, res) {
+
+  User.findOne({ phone:req.body.submitPhoneNumber }, function(err, found) {
+  if (!err) {
+    if (found) {
+      User.updateMany({phone:req.body.submitPhoneNumber},{verifyCode:generateOTP.createNewOTP(),verified: "false"},function(err,docs){if(!err){console.log(docs+" updated successfuly");}});
+      }
+    if (!found){
+      const user = new User({
+        phone: req.body.submitPhoneNumber,
+        verifyCode: generateOTP.createNewOTP(),
+        verified: "false",
+        registered: "false",
+      });
+      user.save(function(err, docs) {
+          if (!err) {
+            console.log("Document inserted succussfully!");
+          }
+        });
+      }
+    }
+    setInterval(function () {
+      User.updateOne({phone:req.body.submitPhoneNumber},{verifyCode:generateOTP.createNewOTP()},function(err,docs){if(!err){console.log(docs+" updated successfuly");}});
+    }, 60000);
+
+
+  res.render("verify", {
+    phoneNumber: req.body.submitPhoneNumber
   });
+});
+});
+
+
+app.post("/verify", function(req, res){
+
+  User.findOne({phone: req.body.phoneNumber},function(err,found){
+    if(!err){
+      if(found.verifyCode==req.body.verificationCode){
+        console.log("Its's a match!");
+         User.updateOne({phone:req.body.phoneNumber},{verified: "true"},function(err,docs){if(!err){console.log(docs+" updated successfuly");}});
+         if(found.registered==="true"){res.render("logIn",{phoneNumber:req.body.phoneNumber});}
+         if(found.registered==="false"){res.render("signUp",{phoneNumber:req.body.phoneNumber});}
+       }else{console.log("Wrong Code!");
+       User.updateMany({phone:req.body.phoneNumber},{verifyCode:generateOTP.createNewOTP(),verified:"false"},function(err,docs){if(!err){console.log(docs+" updated successfuly");}});
+       setInterval(function () {
+         User.updateMany({phone:req.body.phoneNumber},{verifyCode:generateOTP.createNewOTP(),verified:"false"},function(err,docs){if(!err){console.log(docs+" updated successfuly");}});
+       }, 60000);
+     }
+    }
   });
-
-
-app.post("/verify",function(req,res){
-  const phoneNumber=req.body.submitPhoneNumber;
-    const verifyCodeUserEntered=req.body.verificationCode;
-
-    if(verifyCodeUserEntered===otp){
-      console.log("Success");
-      loggedIn=true;
-      res.render("signUp");
-
-    }else{
-      console.log("wrong code");
-      res.render("verify",{phoneNumber:phoneNumber});
-      createNewOTP();
-    }
 });
 
 
-app.post("/back",function(req,res){
-  res.render("start");
-});
-app.post("/signUp",function(req,res){
-  User.updateMany({phone:"09102310378"},
-    {firstName:req.body.submitFirstName,
-    lastName:req.body.submitLastName,
-    university:req.body.submitUniName,
-    email:req.body.submitEmail}, function (err, docs) {
-    if (err){
-        console.log(err)
-    }
-    else{
-        console.log("Updated Docs : ", docs);
-    }
+app.post("/backToStart", function(req, res) {
+  res.redirect("/start");
 });
 
-  res.render("home",{loggedIn:loggedIn});
+
+app.post("/signUp", function(req, res) {
+
+
+      User.updateMany({phone:req.body.submitPhone},{firstName:req.body.submitFirstName,lastName:req.body.submitLastName,university:req.body.submitUniName,email:req.body.submitEmail,password:req.body.submitPassword,registered:"true"},function(err,docs){
+        if(!err){
+            console.log(docs+" updated successfuly");
+            passport.authenticate("local")(req,res,function(){
+              res.redirect("/dashboard");
+        });
+        }
+      });
+
+
+});
+app.post("/login",function(req,res){
+  console.log();
+User.findOne({phone:req.body.submitPhone},function(err,found){
+  if(!err){
+    if(found.password===req.body.submitPassword){
+      console.log("success");
+      passport.authenticate("local")(req,res,function(){
+        res.redirect("/dashboard");
+
+});
+}else{
+  console.log("Wrong Password!");
+  res.render("logIn",{phoneNumber:req.body.submitPhone});
+}
+
+    }
+
+});
+
+});
+app.post("/start", function(req, res) {
+
+
 });
 
 //Opening and starting our server on port 3000
