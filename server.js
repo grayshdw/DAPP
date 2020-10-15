@@ -5,8 +5,12 @@ const _ = require("lodash");
 const mongoose = require("mongoose");
 const app = express();
 
-
-
+//using other database models
+const question = require("./question.js");
+var note = require("./note.js");
+var comment = require("./comment.js");
+var user = require("./user.js");
+var answer = require("./answer.js");
 
 //Setting EJS as our view engine that fetches ejs files from views folder
 app.set('view engine', 'ejs');
@@ -19,159 +23,6 @@ app.use(express.static("public"));
 
 //Connecting to the DataBase on port 27017
 mongoose.connect("mongodb://localhost:27017/daneshjooAppDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true});
-
-
-
-
-//Sample questions data base schema
-const questionSchema = new mongoose.Schema({
-  lesson: {
-    type: String,
-    required: true
-  },
-  subject: {
-    type: String,
-  },
-  university: {
-    type: String,
-    required: true
-  },
-  difficulty: {
-    type: Number,
-    //1 means easy and 3 means hard
-    min: 1,
-    max: 3
-  },
-  rating: {
-    type: Number,
-    //rating method for our sample questions 1 is the worst and 5 is the best
-    min: 1,
-    max: 5
-  },
-  downloadedCount: {
-    type: Number
-  },
-  answer: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "answer"
-  },
-  comments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "comment"
-  }]
-});
-//Creating the sample questions schema document
-const question = mongoose.model("question",questionSchema);
-
-
-//Answers data base Schema
-const answerSchema = new mongoose.Schema({
-  question: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "question"
-  }
-});
-//Creating the answers schema document
-const answer = new mongoose.model("answer", answerSchema);
-
-//course notes data base Schema
-const noteSchema = new mongoose.Schema({
-  lesson: {
-    type: String,
-    required: true
-  },
-  subject: {
-    type: String,
-  },
-  university: {
-    type: String,
-    required: true
-  },
-  rating: {
-    type: Number,
-    //rating method for our Course note 1 is the worst and 5 is the best
-    min: 1,
-    max: 5
-  },
-  downloadedCount: {
-    type:Number
-  },
-  price: {
-    type: Number,
-    min: 0
-  },
-  comments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "comment"
-  }]
-});
-//Creating the questions schema document
-const note =  mongoose.model("note", noteSchema);
-
-//User data base schema
-const userSchema = new mongoose.Schema({
-  phone: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  firstName: {
-    type: String
-  },
-  lastName: {
-    type: String
-  },
-  university: {
-    type: String
-  },
-  email: {
-    type: String,
-    unique: true
-  },
-  username: {
-    type: String,
-    unique: true
-  },
-  questionsDown: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "question"
-  }],
-  comments: [{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "comment"
-  }]
-});
-//Creating the user document
-const user = mongoose.model("user",userSchema);
-
-//Comments Schema
-const commentSchema = new mongoose.Schema ({
-  commenter: {
-    type: userSchema,
-    required: true
-  },
-  context: {
-    type: String,
-    required: true
-  },
-  respond: {
-    type: String
-  },
-  rating: {
-    type: Number,
-    min: 1,
-    max: 5
-  },
-  likes: {
-    type: Number
-  },
-  item: {
-    type: questionSchema,
-    required: true
-  }
-});
-// Crearing comments database model
-const comment = mongoose.model("comment", commentSchema);
 
 
 
