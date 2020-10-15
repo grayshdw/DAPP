@@ -209,7 +209,14 @@ app.get("/questions", function(req, res){
 app.get("/buyQ/:itemID", function(req, res) {
   const link = req.params.itemID;
   let q = question.findOne({_id: link}, function(err, q) {
-    res.render("itemDetail", {item: q});
+    if(q)
+    {
+      res.render("itemDetail", {item: q});
+    }
+    else {
+      res.render("error404");
+    }
+
   });
 });
 
@@ -217,7 +224,13 @@ app.get("/buyQ/:itemID", function(req, res) {
 app.get("/buyN/:itemID", function(req, res) {
   const link = req.params.itemID;
   let n = note.findOne({_id: link}, function(err, n) {
-    res.render("itemDetail", {item: n});
+    if (n) {
+      res.render("itemDetail", {item: n});
+    }
+    else {
+      res.render("error404");
+    }
+
   });
 });
 
@@ -256,7 +269,7 @@ app.post("/buyQ/:questionID", function(req, res) {
       console.log(err);
   });
   */
-  res.render("itemDetail", {item: q});
+  res.redirect("/buyQ/"+link);
 });
 
 //Commenting on a note
@@ -280,7 +293,7 @@ app.post("/buyN/:noteID", function(req, res) {
       console.log(err);
   });
   */
-  res.render("itemDetail", {item: n});
+  res.redirect("/buyN/"+link);
 });
 
 //Note uploading form Data

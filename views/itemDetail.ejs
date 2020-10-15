@@ -16,7 +16,7 @@
       <p class="lead">فروشنده:</p>
       <p class="lead">امتیاز:</p>
       <hr class="my-4">
-      <p class="item-price"><span class = "price-number">24,000</span>تومان </p>
+      <p class="item-price"><span class="price-number">24,000</span>تومان </p>
       <hr class="my-4">
       <a class="btn btn-success btn-block" href="#" role="button">خرید و دانلود</a>
       <a class="btn btn-warning btn-block" href="#" role="button">گزارش</a>
@@ -32,43 +32,73 @@
       <a class="nav-link active" id="nav-images-tab" data-toggle="tab" href="#nav-images" role="tab" aria-controls="nav-images" aria-selected="true">تصاویر</a>
       <a class="nav-link" id="nav-comments-tab" data-toggle="tab" href="#nav-comments" role="tab" aria-controls="nav-comments" aria-selected="false">نظرات</a>
     </div>
-    <div class="popUp">
-      <!-- Button trigger modal -->
-      <a href="#" class="btn btn-success" id="nav-comments" data-toggle="modal" data-target="#comment"> ارسال دیدگاه</a>
 
-      <!-- Modal -->
-      <div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="">دیدگاه شما</h5>
-            </div>
-            <div class="modal-body">
-              <div class="container-fluid">
-                <div class="row">
-                  <div class="col-12">
-                    <form accept-charset="UTF-8" method="post" action="<%= item.id %>" id="commentForm">
-                      <div class="form-group">
-                        <textarea rows = "5" cols = "60" name="comment" required="required" class="form-control"></textarea>
-                      </div>
-                      <button type="submit" class="bts btn-success">ثبت نظر</button>
-                    </form>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-            </div>
-            </div>
-          </div>
-        </div>
-      </div>
   </nav>
 
   <div class="tab-content" id="nav-tabContent">
     <div class="tab-pane fade show active" id="nav-images" role="tabpanel" aria-labelledby="nav-images-tab">...</div>
-    <div class="tab-pane fade" id="nav-comments" role="tabpanel" aria-labelledby="nav-comments-tab">...</div>
+    <div class="tab-pane fade" id="nav-comments" role="tabpanel" aria-labelledby="nav-comments-tab">
+      <div class="popUp">
+        <!-- Button trigger modal -->
+        <a href="#" class="btn btn-success" id="nav-comments" data-toggle="modal" data-target="#comment"> ارسال دیدگاه</a>
+
+        <!-- Modal -->
+        <div class="modal fade" id="comment" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="">دیدگاه شما</h5>
+              </div>
+              <div class="modal-body">
+                <div class="container-fluid">
+                  <div class="row">
+                    <div class="col-12">
+                      <form accept-charset="UTF-8" method="post" action="<%= item.id %>" id="commentForm">
+                        <div class="form-group">
+                          <textarea rows="5" cols="60" name="comment" required="required" class="form-control"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-success">ثبت نظر</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger " data-dismiss="modal">بستن</button>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="comment-user col-md-4">
+              <h3>Lorem Ipsum<h3>
+              <p>2020.06.22</p>
+            </div>
+            <div class="comment-article col-md-6">
+
+              Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="comment-user col-md-4 col-sm-12">
+              <h3>Lorem Ipsum<h3>
+              <p>2020.06.22</p>
+            </div>
+            <div class="comment-article col-md-6 col-sm-12">
+              Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
