@@ -6,7 +6,6 @@ mongoose.connect("mongodb://localhost:27017/daneshjooAppDB", {useNewUrlParser: t
 
 //using other database models
 let answer = require(__dirname+ "/answer.js");
-console.log(answer);
 
 //questions data base schema
 const questionSchema = new mongoose.Schema({

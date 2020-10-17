@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 //using other database models
-const question = require(__dirname+ "/question.js");
+var question = require(__dirname+ "/question.js");
 var note = require(__dirname+ "/note.js");
 var comment = require(__dirname+ "/comment.js");
 var user = require(__dirname+ "/user.js");
