@@ -17,6 +17,7 @@ const noteSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+<<<<<<< HEAD
   file:{
     type: Buffer,
     required:true
@@ -25,6 +26,8 @@ const noteSchema = new mongoose.Schema({
   //   type:String,
   //   required:true
   // },
+=======
+>>>>>>> d4d0f92a58fbd64f666631206e885665aec9f909
   rating: {
     type: Number,
     //rating method for our Course note 1 is the worst and 5 is the best
@@ -42,12 +45,15 @@ const noteSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId, ref: "comment"
   }]
 });
+<<<<<<< HEAD
 //giving the File Path
 noteSchema.virtual('filePath').get(function() {
   if (this.file != null) {
     return `data:application/pdf;charset=utf-8;base64,${this.file.toString('base64')}`
   }
 });
+=======
+>>>>>>> d4d0f92a58fbd64f666631206e885665aec9f909
 
 //exporting noteSchema model
 module.exports =  mongoose.model("note", noteSchema);
