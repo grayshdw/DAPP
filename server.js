@@ -6,7 +6,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 //using other database models
-const question = require(__dirname+ "/question.js");
+var question = require(__dirname+ "/question.js");
 var note = require(__dirname+ "/note.js");
 var comment = require(__dirname+ "/comment.js");
 var user = require(__dirname+ "/user.js");
@@ -14,9 +14,9 @@ var answer = require(__dirname+ "/answer.js");
 
 //Setting EJS as our view engine that fetches ejs files from views folder
 app.set('view engine', 'ejs');
-
+app.use(express.json({limit: '50mb'}));
 //Using bodyParser
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({extended: true,limit: '50mb'}));
 
 //Adding public folder as a static source of our project
 app.use(express.static("public"));
@@ -95,6 +95,15 @@ app.post("/uploadQuestion", function(req, res){
     subject: subject,
     university: university
   });
+  const fileEncoded = req.body.file;
+  if(fileEncoded != null)
+  {
+    const file = JSON.parse(fileEncoded);
+    if (file != null)
+    {
+      newQuestion.file = new Buffer.from(file.data,'base64');
+    }
+  }
   newQuestion.save();
   res.redirect("/upload");
 });
@@ -157,6 +166,15 @@ app.post("/uploadNote",function(req, res){
     subject:subject,
     university:university
   });
+  const fileEncoded = req.body.file;
+  if(fileEncoded != null)
+  {
+    const file = JSON.parse(fileEncoded);
+    if (file != null)
+    {
+      newNote.file = new Buffer.from(file.data,'base64');
+    }
+  }
   newNote.save();
   res.redirect("/upload");
 });

@@ -6,7 +6,7 @@ mongoose.connect("mongodb://localhost:27017/daneshjooAppDB", {useNewUrlParser: t
 
 //using other database models
 let answer = require(__dirname+ "/answer.js");
-console.log(answer);
+
 
 //questions data base schema
 const questionSchema = new mongoose.Schema({
@@ -21,6 +21,14 @@ const questionSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  file:{
+    type: Buffer,
+    required:true
+  },
+  // fileType:{
+  //   type:String,
+  //   required:true
+  // },
   difficulty: {
     type: Number,
     //1 means easy and 3 means hard
@@ -44,6 +52,12 @@ const questionSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "comment"
   }]
+});
+//giving the File Path
+questionSchema.virtual('filePath').get(function() {
+  if (this.file != null) {
+    return `data:application/pdf;charset=utf-8;base64,${this.file.toString('base64')}`
+  }
 });
 
 //exporting the Schema model
