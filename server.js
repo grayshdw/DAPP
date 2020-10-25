@@ -9,15 +9,19 @@ const passport = require("passport");
 const passportLocalMongoose = require("passport-local-mongoose");
 const generateOTP = require(__dirname + "/localModules/generateOTP.js")
 require('dotenv').config();
+
+//using other database models
+var question = require(__dirname+ "/question.js");
+var note = require(__dirname+ "/note.js");
+var comment = require(__dirname+ "/comment.js");
+var user = require(__dirname+ "/user.js");
+var answer = require(__dirname+ "/answer.js");
+
 //Setting EJS as our view engine that fetches ejs files from views folder
 app.set('view engine', 'ejs');
-
-
+app.use(express.json({limit: '50mb'}));
 //Using bodyParser
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
-
+app.use(bodyParser.urlencoded({extended: true,limit: '50mb'}));
 
 //Adding public folder as a static source of our project
 app.use(express.static("public"));
@@ -34,92 +38,43 @@ app.use(passport.session());
 
 
 //Connecting to the DataBase on port 27017
-mongoose.connect("mongodb://localhost:27017/daneshjooAppDB", {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-  useFindAndModify: false,
-  useCreateIndex: true,
+mongoose.connect("mongodb://localhost:27017/daneshjooAppDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true});
+
+//landing page
+app.get("/", function(req, res) {
+  res.render("main");
 });
 
 
-//Sample questions data base schema
-const sampleQSchema = new mongoose.Schema({
-  lesson: {
-    type: String,
-    required: true
-  },
-  subject: {
-    type: String,
-  },
-  university: {
-    type: String,
-    required: true
-  },
-  difficulty: {
-    type: Number,
-    //1 means easy and 3 means hard
-    min: 1,
-    max: 3
-  },
-  rating: {
-    type: Number,
-    //rating method for our sample questions 1 is the worst and 5 is the best
-    min: 1,
-    max: 5
-  },
-  downloadedCount: {
-    type: Number
-  }
-
-
-
+//uploading page
+app.get("/upload", function(req, res) {
+  res.render("upload");
+});
+//List of Notes page
+app.get("/notes", function(req, res) {
+  let notes = note.find({}, function(err, notesData) {
+    res.render("notes",{notesDataList:notesData});
+  });
 });
 
-//Creating the sample questions schema document
-const SampleQ = mongoose.model("SampleQ", sampleQSchema);
-
-
-
-//User data base schema
-const usersSchema = new mongoose.Schema({
-  phone: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  firstName: {
-    type: String
-  },
-  lastName: {
-    type: String
-  },
-  university: {
-    type: String
-  },
-  email: {
-    type: String
-  },
-  password:{
-    type:String
-  },
-  verifyCode: Number,
-  registered: String,
-  verified: String,
-
+//List of questions page
+app.get("/questions", function(req, res){
+  let notes = question.find({}, function(err, questionsData){
+    res.render("questions", {questionsDataList: questionsData});
+  });
 });
 
-// usersSchema.plugin(passportLocalMongoose);
-
-//Creating the user document
-const User = new mongoose.model("User", usersSchema);
-
-
-
-// passport.use(User.createStrategy());
-//
-// passport.serializeUser(User.serializeUser());
-// passport.deserializeUser(User.deserializeUser());
-
+//Buying a question page
+app.get("/buyQ/:itemID", function(req, res) {
+  const link = req.params.itemID;
+  let q = question.findOne({_id: link}, function(err, q) {
+    if(q)
+    {
+      res.render("itemDetail", {item: q});
+    }
+    else {
+      res.render("error404");
+    }
 
 //landing page
 app.get("/", function(req, res) {
@@ -129,7 +84,21 @@ app.get("/", function(req, res) {
 //start page
 app.get("/start", function(req, res) {
   res.render("start");
+  });
+});
 
+//Buying a note page
+app.get("/buyN/:itemID", function(req, res) {
+  const link = req.params.itemID;
+  let n = note.findOne({_id: link}, function(err, n) {
+    if (n) {
+      res.render("itemDetail", {item: n});
+    }
+    else {
+      res.render("error404");
+    }
+
+  });
 });
 app.get("/dashboard", function(req, res) {
   if (req.isAuthenticated()) {
@@ -219,6 +188,99 @@ app.post("/signUp", function(req, res) {
         });
         }
       });
+//Question uploading form Data
+app.post("/uploadQuestion", function(req, res){
+  const lesson = req.body.qLesson;
+  const subject = req.body.qSubject;
+  const university = req.body.qUniversity;
+  const newQuestion = new question({
+    lesson: lesson,
+    subject: subject,
+    university: university
+  });
+  const fileEncoded = req.body.file;
+  if(fileEncoded != null)
+  {
+    const file = JSON.parse(fileEncoded);
+    if (file != null)
+    {
+      newQuestion.file = new Buffer.from(file.data,'base64');
+    }
+  }
+  newQuestion.save();
+  res.redirect("/upload");
+});
+
+//Commenting on a question
+app.post("/buyQ/:questionID", function(req, res) {
+  let link = req.params.questionID;
+  let q = question.findOne({_id: link}, function(err, q) {
+    if (err)
+      console.log(err);
+  });
+  text = req.body.comment;
+  console.log(text);
+  /*
+  console.log(link);
+  const newComment = new comment({
+    context: text,
+    item: q
+  });
+  console.log(newComment);
+  question.updateOne({_id: link}, {comments: text}, function(err) {
+    if (err)
+      console.log(err);
+  });
+  */
+  res.redirect("/buyQ/"+ link);
+});
+
+//Commenting on a note
+app.post("/buyN/:noteID", function(req, res) {
+  let link = req.params.noteID;
+  let n = note.findOne({_id: link}, function(err, n) {
+    if (err)
+      console.log(err);
+  });
+  const text = req.body.comment;
+  console.log(text);
+  /*
+  console.log(link);
+  const newComment = new comment({
+    context: text,
+    item: q
+  });
+  console.log(newComment);
+  question.updateOne({_id: link}, {comments: text}, function(err) {
+    if (err)
+      console.log(err);
+  });
+  */
+  res.redirect("/buyN/"+ link);
+});
+
+//Note uploading form Data
+app.post("/uploadNote",function(req, res){
+  const lesson = req.body.nLesson;
+  const subject = req.body.nSubject;
+  const university = req.body.nUniversity;
+  const newNote = new note({
+    lesson:lesson,
+    subject:subject,
+    university:university
+  });
+  const fileEncoded = req.body.file;
+  if(fileEncoded != null)
+  {
+    const file = JSON.parse(fileEncoded);
+    if (file != null)
+    {
+      newNote.file = new Buffer.from(file.data,'base64');
+    }
+  }
+  newNote.save();
+  res.redirect("/upload");
+});
 
 
 });
