@@ -1,0 +1,66 @@
+<%# including header.ejs that includes boiler plate of our html %>
+<%-include("header");-%>
+
+  <div class="container login-page">
+    <div class="login-page-form">
+      <form class="login-form" action="/signUp" method="post">
+
+        <div class="login-label">
+          <label class="login-page-phonenumber-label " for="login-page-firstName-input">نام</label>
+
+        </div>
+
+
+      <input name="submitFirstName" class="login-page-input " id="login-page-firstName-input" type="text" autocomplete="off" autocorrect="off" maxlength="20"/>
+
+      <div class="login-label">
+        <label class="login-page-phonenumber-label " for="login-page-lastName-input">نام خانوادگی</label>
+
+      </div>
+
+
+    <input name="submitLastName" class="login-page-input " id="login-page-lastName-input" type="text" autocomplete="off" autocorrect="off" maxlength="20"/>
+
+    <div class="login-label">
+      <label class="login-page-phonenumber-label " for="login-page-uniName-input">دانشگاه</label>
+
+    </div>
+
+
+  <input name="submitUniName" class="login-page-input " id="login-page-uniName-input" type="text" autocomplete="off" autocorrect="off" maxlength="20"/>
+
+  <div class="login-label">
+    <label class="login-page-phonenumber-label " for="login-page-Email-input">ایمیل</label>
+
+  </div>
+
+
+<input  type="email" name="submitEmail" class="login-page-input " id="login-page-Email-input"/>
+
+
+<div class="login-label">
+  <label class="login-page-phonenumber-label " for="login-page-phone-input">شماره تلفن</label>
+
+</div>
+
+
+<input name="submitPhone" class="login-page-input " id="login-page-phone-input" type="text" value="<%=phoneNumber%>" readonly/>
+
+<div class="login-label">
+  <label class="login-page-phonenumber-label " for="login-page-password-input">رمز عبور</label>
+
+</div>
+
+
+<input name="submitPassword" class="login-page-input " id="login-page-password-input" type="password" autocomplete="off" autocorrect="off" minlength="8" required maxlength="16"/>
+
+        <button class="login-page-button btn btn-success btn-lg btn-block" type="submit" name="login-page-button-name"> ثبت نام</button>
+    </form>
+  </div>
+</div>
+
+
+
+
+<%# including footer.ejs that includes boiler plate of our html %>
+<%-include("footer");-%>

@@ -1,0 +1,47 @@
+<%# including header.ejs that includes boiler plate of our html %>
+<%-include("header");-%>
+  <div class="verify-handler">
+    <form action="/backToStart" method="post">
+      <button class="button-transparent" type="submit" name="button"><i class="fas fa-chevron-right verify-page-back-icon"></i></button>
+    </form>
+    <h2 class="header-h2-black-rtl">کد فعال سازی را وارد کنید.</h2>
+  </div>
+  <div class="verify-paragraph">
+    <p class="inline ">کد</p>
+    <p class="inline "><%=phoneNumber%></p>
+    <p class="inline "> ارسال شد. کد را اینجا وارد کنید. </p>
+    <form action="/backToStart" method="post" class="inline">
+      <button class="button-transparent button-greenText-withNoRPadding" type="submit" name="button">تغییر شماره تلفن همراه</button>
+    </form>
+  </div>
+    <form action="/verify" method="post">
+      <div class=".verify-page-middle">
+        <div class=" verify-page-input-container">
+          <div class="verify-input">
+            <input type="hidden"  name="phoneNumber" value="<%=phoneNumber%>">
+            <input class="verify-code-input" name="verificationCode" inputmode="numeric" autocorrect="off" autocomplete="off" type="tel" maxlength="6">
+            <div class="verify-page-number-container "></div>
+            <div class="verify-page-number-container "></div>
+            <div class="verify-page-number-container"></div>
+            <div class="verify-page-number-container"></div>
+            <div class="verify-page-number-container"></div>
+            <div class="verify-page-number-container"></div>
+
+          </div>
+        </div>
+      </div>
+
+      <button type="submit"></button>
+
+  </form>
+
+
+
+
+
+
+
+
+<script src="js/countDown.js"></script>
+<%# including footer.ejs that includes boiler plate of our html %>
+<%-include("footer");-%>

@@ -1,0 +1,31 @@
+<%# including header.ejs that includes boiler plate of our html %>
+<%-include("header");-%>
+
+
+<div class="container login-page">
+  <div class="login-page-form">
+    <form class="login-form" action="/login" method="post">
+
+      <div class="login-label">
+        <label class="login-page-phonenumber-label " for="login-page-phone-input">شماره تلفن</label>
+
+      </div>
+
+
+      <input name="submitPhone" class="login-page-input " id="login-page-phone-input" type="text" value="<%=phoneNumber%>" readonly />
+
+      <div class="login-label">
+        <label class="login-page-phonenumber-label " for="login-page-password-input">رمز عبور</label>
+
+      </div>
+
+
+      <input name="submitPassword" class="login-page-input " id="login-page-password-input" type="password" autocomplete="off" autocorrect="off" required minlength="8" maxlength="16" />
+      <button class="login-page-button btn btn-success btn-lg btn-block" type="submit" name="login-page-button-name"> ورود</button>
+    </form>
+  </div>
+</div>
+
+
+<%# including footer.ejs that includes boiler plate of our html %>
+<%-include("footer");-%>

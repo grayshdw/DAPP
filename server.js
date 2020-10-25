@@ -108,17 +108,17 @@ const usersSchema = new mongoose.Schema({
 
 });
 
-usersSchema.plugin(passportLocalMongoose);
+// usersSchema.plugin(passportLocalMongoose);
 
 //Creating the user document
 const User = new mongoose.model("User", usersSchema);
 
 
 
-passport.use(User.createStrategy());
-
-passport.serializeUser(User.serializeUser());
-passport.deserializeUser(User.deserializeUser());
+// passport.use(User.createStrategy());
+//
+// passport.serializeUser(User.serializeUser());
+// passport.deserializeUser(User.deserializeUser());
 
 
 //landing page
@@ -152,6 +152,7 @@ app.post("/start", function(req, res) {
       User.updateMany({phone:req.body.submitPhoneNumber},{verifyCode:generateOTP.createNewOTP(),verified: "false"},function(err,docs){if(!err){console.log(docs+" updated successfuly");}});
       }
     if (!found){
+      console.log("hello my frined u suck");
       const user = new User({
         phone: req.body.submitPhoneNumber,
         verifyCode: generateOTP.createNewOTP(),
@@ -161,6 +162,9 @@ app.post("/start", function(req, res) {
       user.save(function(err, docs) {
           if (!err) {
             console.log("Document inserted succussfully!");
+          }
+          else {
+            console.log(err);
           }
         });
       }
@@ -186,7 +190,9 @@ app.post("/verify", function(req, res){
          User.updateOne({phone:req.body.phoneNumber},{verified: "true"},function(err,docs){if(!err){console.log(docs+" updated successfuly");}});
          if(found.registered==="true"){res.render("logIn",{phoneNumber:req.body.phoneNumber});}
          if(found.registered==="false"){res.render("signUp",{phoneNumber:req.body.phoneNumber});}
-       }else{console.log("Wrong Code!");
+       }
+       else{
+         console.log("Wrong Code!");
        User.updateMany({phone:req.body.phoneNumber},{verifyCode:generateOTP.createNewOTP(),verified:"false"},function(err,docs){if(!err){console.log(docs+" updated successfuly");}});
        setInterval(function () {
          User.updateMany({phone:req.body.phoneNumber},{verifyCode:generateOTP.createNewOTP(),verified:"false"},function(err,docs){if(!err){console.log(docs+" updated successfuly");}});
