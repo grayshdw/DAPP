@@ -93,10 +93,6 @@ app.get("/dashboard", function(req, res) {
   // }
 });
 
-app.post("/profile", function(req, res) {
-
-});
-
 
 app.post("/start", function(req, res) {
 
