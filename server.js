@@ -14,7 +14,7 @@ require('dotenv').config();
 var question = require(__dirname+ "/question.js");
 var note = require(__dirname+ "/note.js");
 var comment = require(__dirname+ "/comment.js");
-var user = require(__dirname+ "/user.js");
+var User = require(__dirname+ "/user.js");
 var answer = require(__dirname+ "/answer.js");
 
 //Setting EJS as our view engine that fetches ejs files from views folder
@@ -26,26 +26,17 @@ app.use(bodyParser.urlencoded({extended: true,limit: '50mb'}));
 //Adding public folder as a static source of our project
 app.use(express.static("public"));
 
-app.use(session({
-  secret: process.env.SESSION_KEY,
-  resave: false,
-  saveUninitialized: false,
-  signed: true,
-}));
-
-app.use(passport.initialize());
-app.use(passport.session());
-
-
 //Connecting to the DataBase on port 27017
 mongoose.connect("mongodb://localhost:27017/daneshjooAppDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true});
-
 //landing page
 app.get("/", function(req, res) {
-  res.render("main");
+  res.render("home");
 });
 
-
+//start page
+app.get("/start", function(req, res) {
+  res.render("start");
+  });
 //uploading page
 app.get("/upload", function(req, res) {
   res.render("upload");
@@ -76,16 +67,10 @@ app.get("/buyQ/:itemID", function(req, res) {
       res.render("error404");
     }
 
-//landing page
-app.get("/", function(req, res) {
-  res.render("home");
-});
-
-//start page
-app.get("/start", function(req, res) {
-  res.render("start");
   });
 });
+
+
 
 //Buying a note page
 app.get("/buyN/:itemID", function(req, res) {
@@ -101,11 +86,11 @@ app.get("/buyN/:itemID", function(req, res) {
   });
 });
 app.get("/dashboard", function(req, res) {
-  if (req.isAuthenticated()) {
-    res.render("dashboard");
-  } else {
+  // if (req.isAuthenticated()) {
+  //   res.render("dashboard");
+  // } else {
     res.redirect("/start");
-  }
+  // }
 });
 
 app.post("/profile", function(req, res) {
@@ -187,6 +172,7 @@ app.post("/signUp", function(req, res) {
               res.redirect("/dashboard");
         });
         }
+      });
       });
 //Question uploading form Data
 app.post("/uploadQuestion", function(req, res){
@@ -283,7 +269,7 @@ app.post("/uploadNote",function(req, res){
 });
 
 
-});
+
 app.post("/login",function(req,res){
   console.log();
 User.findOne({phone:req.body.submitPhone},function(err,found){
