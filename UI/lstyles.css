@@ -59,11 +59,14 @@ a:hover {
   position: relative;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  background-color: #FDFFFA;
+  background-color: #EDEDEF;
   text-align: center;
   border-radius: 50px;
   margin: 3rem 3rem 1rem 3rem;
   padding: 0;
+}
+.container {
+  max-width: 90%;
 }
 
 /* Genaral Crds *************************************************************/
@@ -126,14 +129,13 @@ a:hover {
   margin-bottom: 0.5rem;
 }
 
-/* Note *************************************************************/
-.cardNote a {
-  border-top: solid 4px #3a9fbf  ;
-  color: #3a9fbf  ;
+/* Uploads *************************************************************/
+.up a {
+  border-top: solid 4px #0492c2  ;
+  color: #0492c2  ;
 }
-
-.cardNote:hover a {
-  background-color: #3a9fbf  ;
+.up:hover a {
+  background-color: #0492c2  ;
   color: #FDFFFA;
   transition: background-color 250ms linear;
   -webkit-transition: background-color 250ms linear;
@@ -141,72 +143,35 @@ a:hover {
   -ms-transition: background-color 250ms linear;
   -o-transition: background-color 250ms linear;
 }
-
-.cardNote .icon {
-  color: #3a9fbf  ;
+.up .icon {
+  color: #0492c2  ;
 }
 
-/* Question *************************************************************/
-.cardQuestion a {
-  border-top: solid 4px #3a9fbf ;
-  color: #3a9fbf ;
+/* Downloads *************************************************************/
+.down a {
+  border-top: solid 4px #63c5da ;
+  color: #63c5da ;
 }
 
-.cardQuestion:hover a {
-  background-color: #3a9fbf ;
+.down:hover a {
+  background-color: #63c5da ;
   color: #FDFFFA;
   -webkit-transition: background-color 250ms linear;
   -ms-transition: background-color 250ms linear;
   transition: background-color 250ms linear;
 }
 
-.cardQuestion .icon {
-  color: #3a9fbf ;
-}
-
-/* Project *************************************************************/
-.cardProject a {
-  border-top: solid 4px #3a9fbf ;
-  color: #3a9fbf ;
-}
-
-.cardProject:hover a {
-  background-color: #3a9fbf ;
-  color: #FDFFFA;
-  -webkit-transition: background-color 250ms linear;
-  -ms-transition: background-color 250ms linear;
-  transition: background-color 250ms linear;
-}
-
-.cardProject .icon {
-  color: #3a9fbf ;
-}
-
-/* TA *************************************************************/
-.cardTA a {
-  border-top: solid 4px #3a9fbf ;
-  color: #3a9fbf ;
-}
-
-.cardTA:hover a {
-  background-color: #3a9fbf ;
-  color: #FDFFFA;
-  -webkit-transition: background-color 250ms linear;
-  -ms-transition: background-color 250ms linear;
-  transition: background-color 250ms linear;
-}
-
-.cardTA .icon {
-  color: #3a9fbf ;
+.down .icon {
+  color: #63c5da ;
 }
 
 /* Contest *************************************************************/
-.cardContest a {
+.contest a {
   border-top: solid 4px #ffbe26;
   color: #ffbe26;
 }
 
-.cardContest:hover a {
+.contest:hover a {
   background-color: #ffbe26;
   color: #FDFFFA;
   -webkit-transition: background-color 250ms linear;
@@ -214,17 +179,17 @@ a:hover {
   transition: background-color 250ms linear;
 }
 
-.cardContest .icon {
+.contest .icon {
   color: #ffbe26;
 }
 
 /* Profile *************************************************************/
-.cardProfile a {
+.profile a {
   border-top: solid 4px #b4b6c3;
   color: #b4b6c3;
 }
 
-.cardProfile:hover a {
+.profile:hover a {
   background-color: #b4b6c3;
   color: #FDFFFA;
   -webkit-transition: background-color 250ms linear;
@@ -232,7 +197,7 @@ a:hover {
   transition: background-color 250ms linear;
 }
 
-.cardProfile .icon {
+.profile .icon {
   color: #b4b6c3;
 }
 
