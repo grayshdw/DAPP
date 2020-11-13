@@ -129,40 +129,22 @@ a:hover {
   margin-bottom: 0.5rem;
 }
 
-/* Uploads *************************************************************/
-.up a {
-  border-top: solid 4px #0492c2  ;
-  color: #0492c2  ;
-}
-.up:hover a {
-  background-color: #0492c2  ;
-  color: #FDFFFA;
-  transition: background-color 250ms linear;
-  -webkit-transition: background-color 250ms linear;
-  -moz-transition: background-color 250ms linear;
-  -ms-transition: background-color 250ms linear;
-  -o-transition: background-color 250ms linear;
-}
-.up .icon {
-  color: #0492c2  ;
+/* Profile *************************************************************/
+.profile a {
+  border-top: solid 4px #b4b6c3;
+  color: #b4b6c3;
 }
 
-/* Downloads *************************************************************/
-.down a {
-  border-top: solid 4px #63c5da ;
-  color: #63c5da ;
-}
-
-.down:hover a {
-  background-color: #63c5da ;
+.profile:hover a {
+  background-color: #b4b6c3;
   color: #FDFFFA;
   -webkit-transition: background-color 250ms linear;
   -ms-transition: background-color 250ms linear;
   transition: background-color 250ms linear;
 }
 
-.down .icon {
-  color: #63c5da ;
+.profile .icon {
+  color: #b4b6c3;
 }
 
 /* Contest *************************************************************/
@@ -183,22 +165,40 @@ a:hover {
   color: #ffbe26;
 }
 
-/* Profile *************************************************************/
-.profile a {
-  border-top: solid 4px #b4b6c3;
-  color: #b4b6c3;
+/* Uploads *************************************************************/
+.up a {
+  border-top: solid 4px #0492c2  ;
+  color: #0492c2;
+}
+.up:hover a {
+  background-color: #0492c2  ;
+  color: #FDFFFA;
+  transition: background-color 250ms linear;
+  -webkit-transition: background-color 250ms linear;
+  -moz-transition: background-color 250ms linear;
+  -ms-transition: background-color 250ms linear;
+  -o-transition: background-color 250ms linear;
+}
+.up .icon {
+  color: #0492c2;
 }
 
-.profile:hover a {
-  background-color: #b4b6c3;
+/* Downloads *************************************************************/
+.down a {
+  border-top: solid 4px #63c5da ;
+  color: #63c5da;
+}
+
+.down:hover a {
+  background-color: #63c5da ;
   color: #FDFFFA;
   -webkit-transition: background-color 250ms linear;
   -ms-transition: background-color 250ms linear;
   transition: background-color 250ms linear;
 }
 
-.profile .icon {
-  color: #b4b6c3;
+.down .icon {
+  color: #63c5da ;
 }
 
 /* Footer */
