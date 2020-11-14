@@ -1,7 +1,7 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #183661;
+  background-color: #15216e;
   color: #606060;
   font-family: FarsiFont, Tahoma;
 }
@@ -22,7 +22,7 @@ a:hover {
 }
 
 .navbar {
-  background-color: #183661;
+  background-color:#15216E;
   z-index: 1;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
@@ -43,7 +43,7 @@ a:hover {
 .introduction {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  background-color: #183661;
+  background-color: #131E63;
   color: #FDFFFA;
   position: relative;
   padding: 4rem;
@@ -59,7 +59,7 @@ a:hover {
   position: relative;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   transition: 0.3s;
-  background-color: #EDEDEF;
+  background-color: #e8e9f1;
   text-align: center;
   border-radius: 50px;
   margin: 3rem 3rem 1rem 3rem;
@@ -79,6 +79,8 @@ a:hover {
   margin: 2rem 0.5rem 2rem 0.5rem;
   border-radius: 1rem;
   z-index: 1;
+  background-color: #FDFFFA;
+  color: #0d1442;
 }
 
 .card:hover {
@@ -107,13 +109,15 @@ a:hover {
 
 .card:hover {
   padding: auto;
-  background-color: #FDFFFA;
+
   box-shadow: 0px 1px 1.5px 1px #FDFFFA;
   transform: translateY(-0.5px);
   -webkit-transform: translateY(-0.5px);
   -moz-transform: translateY(-0.5px);
   -ms-transform: translateY(-0.5px);
   -o-transform: translateY(-0.5px);
+  background-color:#0d1442;
+  color: #FDFFFA;
 }
 
 .btn {
@@ -130,13 +134,18 @@ a:hover {
 }
 
 /* Profile *************************************************************/
+.profile {
+  background-color: #0d1442;
+  color: #FDFFFA;
+}
+
 .profile a {
-  border-top: solid 4px #b4b6c3;
-  color: #b4b6c3;
+  border-top: solid 4px #81c988;
+  color: #81c988;
 }
 
 .profile:hover a {
-  background-color: #b4b6c3;
+  background-color: #81c988;
   color: #FDFFFA;
   -webkit-transition: background-color 250ms linear;
   -ms-transition: background-color 250ms linear;
@@ -144,10 +153,14 @@ a:hover {
 }
 
 .profile .icon {
-  color: #b4b6c3;
+  color: #81c988;
 }
 
 /* Contest *************************************************************/
+.contest {
+  background-color: #0d1442;
+  color: #FDFFFA;
+}
 .contest a {
   border-top: solid 4px #ffbe26;
   color: #ffbe26;
@@ -166,6 +179,7 @@ a:hover {
 }
 
 /* Uploads *************************************************************/
+
 .up a {
   border-top: solid 4px #0492c2  ;
   color: #0492c2;
@@ -204,8 +218,8 @@ a:hover {
 /* Footer */
 .footer {
   position: relative;
-  background-color: #183661;
-  color: #FDFFFA;
+  background-color: #15216E;
+  color: #63c5da ;
   margin-bottom: 0;
   text-align: center;
   z-index: 2;
