@@ -88,7 +88,7 @@ a:hover {
   .corner .pic {
     width: 270%;
     position: relative;
-    margin-right: -144%;
+    margin-right: -142%;
     z-index: 2;
     display: block;
   }
