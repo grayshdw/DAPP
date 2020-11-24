@@ -46,7 +46,6 @@ a:hover {
     position: fixed;
     padding-right: 0;
     width: 25%;
-    overflow: hidden;
     z-index: 3;
     text-align: center;
     border-top-left-radius: 2rem;
