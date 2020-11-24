@@ -70,7 +70,7 @@ a:hover {
   .introduction h1 {
     font-size: 3rem;
     margin-top: -33%;
-    padding: 10% 6rem 0 0;
+    padding: 11% 6rem 0 0;
   }
 
   .introduction .corner {
@@ -79,16 +79,16 @@ a:hover {
     display: block;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
-    padding: 4rem 0 4rem 1%;
+    padding: 2rem 0 2rem 3rem;
     margin: 0 80.1% 1% 0;
     background-color: #183675;
     border-top-left-radius: 2rem;
     border-bottom-right-radius: 2rem;
   }
   .corner .pic {
-    width: 140%;
+    width: 270%;
     position: relative;
-    margin-right: -70%;
+    margin-right: -144%;
     z-index: 2;
     display: block;
   }
