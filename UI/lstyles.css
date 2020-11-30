@@ -208,12 +208,12 @@ a:hover {
   color: #ffbe26;
 }
 
-/* Uploads *************************************************************/
-.up a {
+/* Cards *************************************************************/
+.note a, .question a {
   border-top: solid 4px #0492c2;
   color: #0492c2;
 }
-.up:hover a {
+.note:hover a, .question:hover a {
   background-color: #0492c2;
   color: #FDFFFA;
   box-shadow: 0px 1px 1.5px 1px #0492c2;
@@ -224,17 +224,16 @@ a:hover {
   -ms-transition: background-color 250ms linear;
   -o-transition: background-color 250ms linear;
 }
-.up .icon {
+.note .icon, .question .icon {
   color: #0492c2;
 }
 
-/* Downloads *************************************************************/
-.down a {
+
+.project a, .TA a {
   border-top: solid 4px #63c5da ;
   color: #63c5da;
 }
-
-.down:hover a {
+.project:hover a, .TA:hover a {
   background-color: #63c5da ;
   color: #FDFFFA;
   box-shadow: 0px 1px 1.5px 1px #63c5da;
@@ -244,8 +243,7 @@ a:hover {
   -ms-transition: background-color 250ms linear;
   transition: background-color 250ms linear;
 }
-
-.down .icon {
+.project .icon, .TA .icon {
   color: #63c5da ;
 }
 

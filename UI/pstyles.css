@@ -35,10 +35,6 @@ a:hover {
   color: #183675;
 }
 
-.navbar .toggleSwitch {
-  display: none;
-}
-
 /* Sidebar *************************************************************/
 .sidebar {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
@@ -61,18 +57,18 @@ a:hover {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   border-radius: 1rem;
   text-align: center;
-  width: 40%;
+  width: 85%;
   height: 3.5rem;
   display: inline-block;
   margin: 1rem 0.5rem;
   padding: 1rem 0 1rem 0;
-  font-size: 0.9rem;
+  font-size: 1.3rem;
 }
 
 .sidebar .item .icon {
   color: #FDFFFA;
   padding: 0;
-  width: 1.1rem;
+  width: 2rem;
   height: 2rem;
   margin-left: 0;
 }
@@ -89,6 +85,7 @@ a:hover {
   padding: 1rem 0.5rem 1rem 0.5rem;
   background-color: #b4b6c3;
   color: #FDFFFA;
+  font-size: 1.3rem;
 }
 
 .sidebar .item:hover {
@@ -120,14 +117,13 @@ a:hover {
 
 .sidebar .contest {
   background-color: #ffbe26;
-  width: 85%;
 }
 
-.sidebar .up {
+.sidebar .note, .question {
   background-color: #0492c2;
 }
 
-.sidebar .down {
+.sidebar .project, .TA {
   background-color: #63c5da;
 }
 
@@ -182,6 +178,7 @@ a:hover {
 }
 
 /* Responsive *************************************************************/
+/*
 @media (max-width: 1325px) {
   .sidebar {
     display: none;
