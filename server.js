@@ -30,7 +30,12 @@ app.use(express.static("public"));
 mongoose.connect("mongodb://localhost:27017/daneshjooAppDB", {useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false, useCreateIndex: true});
 //landing page
 app.get("/", function(req, res) {
-  res.render("home");
+  res.render("landing");
+});
+
+//sidebar page
+app.get("/sidebar", function (req, res) {
+    res.render("sidebar");
 });
 
 //start page

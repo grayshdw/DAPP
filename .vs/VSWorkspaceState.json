@@ -1,6 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\public",
+    "\\public\\css"
   ],
+  "SelectedNode": "\\views",
   "PreviewInSolutionExplorer": false
 }
